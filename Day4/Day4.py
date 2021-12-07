@@ -18,9 +18,9 @@ for i in range((len(bingoInput) // 6)):
 
 def checkNumber(table, number):
     for line in table:
-        for j, spot in enumerate(line):
+        for x, spot in enumerate(line):
             if spot == number:
-                line[j] = -1
+                line[x] = -1
     return table
 
 
@@ -49,24 +49,27 @@ def sumWinner(table):
 
 def playBingo(bingoTables, bingoNumbers):
     checkedBingoTables = bingoTables
-    winnerBingo = []
+    winBingo = []
 
-    for j, bingoDraw in enumerate(bingoNumbers):
+    for k, bingoDraw in enumerate(bingoNumbers):
         if len(checkedBingoTables) > 0:
             newCheckedBingoTables = []
             for table in checkedBingoTables:
                 checkNumber(table, bingoDraw)
                 if checkWin(table):
                     print('We have a winner!')
-                    winnerBingo.append(table)
+                    winBingo.append(table)
+                    checkedBingoTables = []
+
                 else:
                     print('Try again!')
                     newCheckedBingoTables.append(table)
-            checkedBingoTables = newCheckedBingoTables
+                    print(newCheckedBingoTables)
+            #checkedBingoTables = newCheckedBingoTables
         else:
             print('Quit')
-            print(checkedBingoTables)
-            return winnerBingo, bingoNumbers[j-1]
+            print(winBingo)
+            return winBingo, bingoNumbers[k - 1]
 
 
 winnerBingo = playBingo(bingoTables, bingoNumbers)
@@ -77,3 +80,4 @@ print(f'Draw: {winnerDraw}')
 
 result = sumWinner(winnerTable) * winnerDraw
 print(result)
+

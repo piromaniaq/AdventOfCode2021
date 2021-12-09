@@ -10,7 +10,7 @@ oldDays = [int(x) for x in oldDaysFirst[0].split(',')]
 newFish = 8
 
 
-def next_day(y):
+def next_day(day):
     for x in range(len(oldDays)):
         if oldDays[x] > 0:
             oldDays[x] = oldDays[x] - 1
@@ -24,3 +24,4 @@ for x in range(daysNumber):
     next_day(x)
 
 print(len(oldDays))
+

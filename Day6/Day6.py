@@ -1,11 +1,26 @@
-oldDays = []
+daysNumber = 80
+oldDaysFirst = []
 
-with open('day6_test.txt') as f:
+with open('day6.txt') as f:
     lines = f.readlines()
     for line in lines:
-        oldDays.append(line.strip())
+        oldDaysFirst.append(line.strip())
 
-oldDaysList = [int(x) for x in oldDays[0].split(',')]
+oldDays = [int(x) for x in oldDaysFirst[0].split(',')]
+newFish = 8
 
-print(oldDays)
-print(oldDaysList)
+
+def next_day(y):
+    for x in range(len(oldDays)):
+        if oldDays[x] > 0:
+            oldDays[x] = oldDays[x] - 1
+        elif oldDays[x] == 0:
+            oldDays[x] = 6
+            oldDays.append(newFish)
+    return oldDays
+
+
+for x in range(daysNumber):
+    next_day(x)
+
+print(len(oldDays))

@@ -22,3 +22,4 @@ for move in moves:
 
 result = forward * depth
 print(result)
+

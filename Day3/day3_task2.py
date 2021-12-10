@@ -33,16 +33,9 @@ def oxygen_generator(factor):
     return onesRate
 
 
-#def co2_scrubber(reports):
-
-
-
 if __name__ == '__main__':
     reports = get_data('day3_test.txt')
     factors = check_value(reports)
     print(factors)
     oxygen = oxygen_generator(factors)
-    #co2 = co2_scrubber(factors)
-
-    #print(co2)
     print(oxygen)

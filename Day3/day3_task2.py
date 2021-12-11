@@ -5,37 +5,61 @@ def get_data(file):
     return data
 
 
-def check_value(check):
-    value = []
-    for i in range(0, len(check[0])):
-        checkValue = 0
-        for report in check:
-            if report[i] == '1':
-                checkValue += 1
-            else:
-                checkValue -= 1
-        value.append(checkValue)
-    return value
+def check_ones(checkData, checkBit):
+    checkValue = 0
+    for currentValue in checkData:
+        if currentValue[checkBit] == '1':
+            checkValue += 1
+        else:
+            checkValue -= 1
+    if checkValue >= 0:
+        return 1
+    else:
+        return 0
 
 
-def oxygen_generator(factor):
+def check_zeros(checkData, checkBit):
+    checkValue = 0
+    for currentValue in checkData:
+        if currentValue[checkBit] == '1':
+            checkValue += 1
+        else:
+            checkValue -= 1
+    if checkValue >= 0:
+        return 0
+    else:
+        return 1
+
+
+def oxygen_generator(data, factor_determination, factor_value):
     onesRate = []
-    tempList = reports
-    for x in factor:
-        for y in range(0, len(tempList)):
-            if x >= 0:
-                onesRate.append(tempList[y])
-            else:
-                continue
-            tempList = onesRate
-            onesRate = []
-    print(onesRate)
+    for line in data:
+        if line[factor_determination] == str(factor_value):
+            onesRate.append(line)
     return onesRate
 
 
+def co2_scrubber(data, factor_determination, factor_value):
+    zerosRate = []
+    for line in data:
+        if line[factor_determination] == str(factor_value):
+            zerosRate.append(line)
+    return zerosRate
+
+
 if __name__ == '__main__':
-    reports = get_data('day3_test.txt')
-    factors = check_value(reports)
-    print(factors)
-    oxygen = oxygen_generator(factors)
-    print(oxygen)
+    reports = get_data('data.txt')
+    reportOnes = oxygen_generator(reports, 0, check_ones(reports, 0))
+    reportZeros = co2_scrubber(reports, 0, check_zeros(reports, 0))
+    for i in range(1, len(reports[0]) + 1):
+        if len(reportOnes) > 1:
+            reportOnes = oxygen_generator(reportOnes, i, check_ones(reportOnes, i))
+        else:
+            oxygen = int(reportOnes[0], 2)
+
+    for i in range(1, len(reports[0]) + 1):
+        if len(reportZeros) > 1:
+            reportZeros = co2_scrubber(reportZeros, i, check_zeros(reportZeros, i))
+        else:
+            co2 = int(reportZeros[0], 2)
+    print(oxygen * co2)

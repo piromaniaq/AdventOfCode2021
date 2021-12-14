@@ -21,7 +21,20 @@ def position(data):
         elif y1 == y2:
             for x in range(min(x1, x2), max(x1, x2) + 1):
                 points[(x, y1)] += 1
+        else:
+            if x1 < x2:
+                x_d = 1
+            else:
+                x_d = -1
+            if y1 < y2:
+                y_d = 1
+            else:
+                y_d = -1
 
+            x, y = x1, y1
+            while (x, y) != (x2 + x_d, y2 + y_d):
+                points[(x, y)] += 1
+                x, y = x + x_d, y + y_d
     for k, v in points.most_common():
         if v > 1:
             counter += 1

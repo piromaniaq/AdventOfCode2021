@@ -1,17 +1,16 @@
 def get_data(file):
     with open(file, 'r') as f:
+        count = 0
         data = f.read().splitlines()
-        input_final = []
-        output_final = []
         for line in data:
             input, output = line.split(' | ')
             output_split = output.split()
-            input_split = input.split()
-            input_final.append(input_split)
-            output_final.append(output_split)
-    return input_final, output_final
+            for x in output_split:
+                if len(x) in {2, 3, 4, 7}:
+                    count += 1
+    return count
 
 
 if __name__ == '__main__':
-    input_full, output_full = get_data('input.txt')
-    print('Input:',input_full, '\nOutput:', output_full)
+    digits = get_data('input.txt')
+    print(digits)
